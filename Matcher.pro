@@ -3,7 +3,6 @@
 # Project created by QtCreator 2018-04-15T00:05:03
 #
 #-------------------------------------------------
-
 QT       -= gui
 
 TARGET = Matcher
@@ -22,6 +21,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+QMAKE_CFLAGS_ISYSTEM=
+
 SOURCES += \
         matcher.cpp \
     bozorth3m.cpp \
@@ -39,6 +40,7 @@ unix {
     INSTALLS += target
 }
 
-#SupremaSensor
-unix:!macx: LIBS += -L$$PWD/../../../../../opt/suprema/x64/ -lUFMatcher
-INCLUDEPATH += $$PWD/../../../../../opt/suprema/include
+#SupremaSens
+unix:!macx: LIBS += -L$$PWD/../../../../../usr/local/lib64/ -lUFMatcher
+INCLUDEPATH += $$PWD/../../../../../usr/local/include/suprema
+DEPENDPATH += $$PWD/../../../../../usr/local/include/suprema
