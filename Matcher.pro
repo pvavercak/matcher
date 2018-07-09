@@ -41,6 +41,6 @@ unix {
 }
 
 #Suprema scanner
-unix:!macx: LIBS += -L$$PWD/../../../../../usr/local/lib64/ -lUFMatcher
-INCLUDEPATH += $$PWD/../../../../../usr/local/include/suprema
-DEPENDPATH += $$PWD/../../../../../usr/local/include/suprema
+unix:!macx: LIBS += -L/usr/local/lib64/ -lUFMatcher
+INCLUDEPATH += /usr/local/include/suprema
+DEPENDPATH += /usr/local/include/suprema
