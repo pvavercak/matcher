@@ -40,7 +40,7 @@ unix {
     INSTALLS += target
 }
 
-#SupremaSens
+#Suprema scanner
 unix:!macx: LIBS += -L$$PWD/../../../../../usr/local/lib64/ -lUFMatcher
 INCLUDEPATH += $$PWD/../../../../../usr/local/include/suprema
 DEPENDPATH += $$PWD/../../../../../usr/local/include/suprema
