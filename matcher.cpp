@@ -488,6 +488,11 @@ void Matcher::testDatabase(const QMap<QString, unsigned char *> &dbISO)
     }
 }
 
+SUPREMA_MATCHER Matcher::getSupremaMatcher() const
+{
+    return supremaMatcher;
+}
+
 
 
 

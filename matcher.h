@@ -29,6 +29,8 @@ public:
     void testDatabase(QMap<QString, QVector<MINUTIA> > &db);
     void testDatabase(const QMap<QString, unsigned char *> &dbISO);
 
+    SUPREMA_MATCHER getSupremaMatcher() const;
+
 private:
 
     MATCHER matcher;
