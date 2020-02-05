@@ -67,7 +67,7 @@ int Matcher::setMatcher(MATCHER matcher)
         ufm_res = UFM_SetParameter(this->supremaMatcher.matcher, UFM_PARAM_FAST_MODE, &fastMode);
         int securityLevel = 4;
         ufm_res = UFM_SetParameter(this->supremaMatcher.matcher, UFM_PARAM_SECURITY_LEVEL, &securityLevel);
-        int rotateMode = 0;
+        int rotateMode = 1;
         ufm_res = UFM_SetParameter(this->supremaMatcher.matcher, UFM_PARAM_AUTO_ROTATE, &rotateMode);
         int sif = 1;
         ufm_res = UFM_SetParameter(this->supremaMatcher.matcher, UFM_PARAM_USE_SIF, &sif);
