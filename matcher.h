@@ -31,6 +31,8 @@ public:
 
     SUPREMA_MATCHER getSupremaMatcher() const;
 
+    DBTEST_RESULT getDbtestResult() const;
+
 private:
 
     MATCHER matcher;

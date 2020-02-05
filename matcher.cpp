@@ -464,7 +464,6 @@ void Matcher::testDatabase(const QMap<QString, unsigned char *> &dbISO)
         for (FINGERPRINT_PAIR &i : this->dbtestParams.genuinePairs) {
             UFM_VerifyEx(this->supremaMatcher.matcher, dbISO.value(i.leftFingerprint), this->isoConverter.getTemplateSize(dbISO.value(i.leftFingerprint)), dbISO.value(i.rightFingerprint), this->isoConverter.getTemplateSize(dbISO.value(i.rightFingerprint)), &score, &success);
             i.score = score;
-
             emit matcherProgressSignal((int)(cnt++ * 1.0/ (this->dbtestParams.genuinePairs.size() + this->dbtestParams.impostorPairs.size() - 2) * 100));
         }
 
@@ -493,6 +492,11 @@ void Matcher::testDatabase(const QMap<QString, unsigned char *> &dbISO)
 SUPREMA_MATCHER Matcher::getSupremaMatcher() const
 {
     return supremaMatcher;
+}
+
+DBTEST_RESULT Matcher::getDbtestResult() const
+{
+    return dbtestResult;
 }
 
 
