@@ -42,7 +42,20 @@ unix {
     INSTALLS += target
 }
 
-#Suprema scanner Debian/Manjaro
-unix:!macx: LIBS += -L/usr/local/lib/ -lUFMatcher
-INCLUDEPATH += /usr/local/include/suprema
-DEPENDPATH += /usr/local/include/suprema
+CONFIG += manjaro
+#CONFIG += debian
+
+debian {
+    #Suprema SDK (installed manually)
+    unix:!macx: LIBS += -L/usr/local/lib/ -lUFMatcher
+    INCLUDEPATH += /usr/local/include/suprema
+    DEPENDPATH += /usr/local/include/suprema
+}
+manjaro {
+    #Suprema SDK (installed manually)
+    unix:!macx: LIBS += -L/usr/local/lib/ -lUFMatcher
+    INCLUDEPATH += /usr/local/include/suprema
+    DEPENDPATH += /usr/local/include/suprema
+}
+
+
