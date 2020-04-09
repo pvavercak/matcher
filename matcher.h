@@ -17,7 +17,7 @@ public:
 
     BozorthMultiThreadManager bozorth3m;
 
-    int setMatcher(MATCHER matcher);
+    int setMatcher(MATCHER matcher=bozorth3);
     int setDBTestParams(int numberOfSubject, int imgPerSubject);
 
     void identify(unsigned char* subjectISO, const QMultiMap<QString, unsigned char *> &dbISO);
@@ -28,8 +28,6 @@ public:
 
     void testDatabase(QMap<QString, QVector<MINUTIA> > &db);
     void testDatabase(const QMap<QString, unsigned char *> &dbISO);
-
-    SUPREMA_MATCHER getSupremaMatcher() const;
 
     DBTEST_RESULT getDbtestResult() const;
 
@@ -51,14 +49,9 @@ private:
     DBTEST_PARAMS dbtestParams;
     DBTEST_RESULT dbtestResult;
 
-    SUPREMA_MATCHER supremaMatcher;
-
-
     void generatePairs();
     void generateGenuinePairs();
     void generateImpostorPairs();
-
-    void supremaMatchingDone();
 
     int findMaxScoreItem();
     double computeEERValue();
@@ -68,10 +61,8 @@ private:
     void cleanDBTestResults();
     void matcherError(int errorCode);
 
-
 private slots:
     void bozorthMatchingDone(int duration);
-
 
 signals:
 

@@ -22,9 +22,7 @@
 #include <string>
 #include <sys/resource.h>
 
-#include "UFMatcher.h" // Suprema
-
-enum MATCHER {bozorth3, suprema, mcc};
+enum MATCHER {bozorth3, mcc};
 enum MODE {identification, verification, dbtest};
 
 typedef struct fingerprint_pair {
@@ -77,11 +75,5 @@ typedef struct dbtest_result {
     float eer;
     PLOT_PARAMS plotParams;
 } DBTEST_RESULT;
-
-typedef struct suprema_matcher {
-    HUFMatcher matcher;
-    bool loaded;
-    QVector<float> scores;
-} SUPREMA_MATCHER;
 
 #endif // MATCHER_CONFIG_H
