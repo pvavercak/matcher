@@ -20,7 +20,7 @@ public:
     int setMatcher(MATCHER matcher=bozorth3);
     int setDBTestParams(int numberOfSubject, int imgPerSubject);
 
-    void identify(unsigned char* subjectISO, const QMultiMap<QString, unsigned char *> &dbISO);
+    void identify(unsigned char* subjectISO, const QMultiMap<QString, QVector<uchar> > &dbISO);
     void identify(const QVector<MINUTIA> &subject, const QMultiMap<QString, QVector<MINUTIA> > &db);
 
     void verify(unsigned char *subjectISO, const QVector<unsigned char *> &dbISO);

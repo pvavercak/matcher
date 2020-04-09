@@ -102,7 +102,7 @@ void Matcher::generateImpostorPairs()
 
 //IDENTIFICATION, VERIFICATION, DBTEST
 
-void Matcher::identify(unsigned char* subjectISO, const QMultiMap<QString, unsigned char*> &dbISO)
+void Matcher::identify(unsigned char* subjectISO, const QMultiMap<QString, QVector<uchar>> &dbISO)
 {
     if (this->matcherIsRunning) {
         this->matcherError(10);
@@ -125,11 +125,11 @@ void Matcher::identify(unsigned char* subjectISO, const QMultiMap<QString, unsig
                 cnt++;
             }
             this->alternativeNames.insert(i.key() + "_" + QString::number(cnt), i.key());
-            this->bozorthTemplates.insert(i.key() + "_" + QString::number(cnt), this->isoConverter.convertFromISO(i.value()));
+            this->bozorthTemplates.insert(i.key() + "_" + QString::number(cnt), this->isoConverter.convertFromISO(i.value().data()));
         }
         else {
             this->alternativeNames.insert(i.key(), i.key());
-            this->bozorthTemplates.insert(i.key(), this->isoConverter.convertFromISO(i.value()));
+            this->bozorthTemplates.insert(i.key(), this->isoConverter.convertFromISO(i.value().data()));
         }
     }
     this->generatePairs();
