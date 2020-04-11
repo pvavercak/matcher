@@ -1485,14 +1485,13 @@ void Bozorth3_Core::bz_sift(
     if ( *ww >= WWIM )	/* This limits the number of endpoint groups that can be constructed */
         return;
 
-
     {
         int b;
         int b_index;
-        register int i;
+         int i;
         int notfound;
         int lim;
-        register int * lptr;
+         int * lptr;
 
         /* If lookahead Subject endpoint previously assigned to TQ but not paired with lookahead On-File endpoint ... */
 

@@ -137,7 +137,7 @@ void Matcher::identify(unsigned char* subjectISO, const QMultiMap<QString, QVect
     this->bozorth3m.matchAll();
 }
 
-void Matcher::identify(const QVector<MINUTIA> &subject, const QMultiMap<QString, QVector<MINUTIA>> &db)
+void Matcher::identify(const QVector<MINUTIA> &subject, const QMultiMap<QString, QVector<MINUTIA>> &db, const qintptr& requester)
 {
     if (this->matcherIsRunning) {
         this->matcherError(10);
@@ -145,6 +145,7 @@ void Matcher::identify(const QVector<MINUTIA> &subject, const QMultiMap<QString,
     }
     else this->matcherIsRunning = true;
 
+    this->requester = requester;
     this->mode = identification;
 
     //ALTERNATIVE_NAMES, BOZORTH TEMPLATES
@@ -196,14 +197,14 @@ void Matcher::verify(unsigned char* subjectISO, const QVector<unsigned char *> &
     this->bozorth3m.matchAll();
 }
 
-void Matcher::verify(const QVector<MINUTIA> &subject, const QVector<QVector<MINUTIA> > &db)
+void Matcher::verify(const QVector<MINUTIA> &subject, const QVector<QVector<MINUTIA> > &db, const qintptr& requester)
 {
     if (this->matcherIsRunning) {
         this->matcherError(10);
         return;
     }
     else this->matcherIsRunning = true;
-
+    this->requester = requester;
     this->mode = verification;
     // ALTERNATIVE NAMES
     this->alternativeNames.clear();
@@ -276,8 +277,8 @@ void Matcher::bozorthMatchingDone(int duration)
 
         int bestMatch = this->findMaxScoreItem();
         if (this->fingerprintPairs[bestMatch].score >= this->thresholds.bozorthThr)
-            emit identificationDoneSignal(true, this->alternativeNames.value(this->fingerprintPairs[bestMatch].rightFingerprint), this->fingerprintPairs[bestMatch].score);
-        else emit identificationDoneSignal(false, this->alternativeNames.value(this->fingerprintPairs[bestMatch].rightFingerprint), this->fingerprintPairs[bestMatch].score);
+            emit identificationDoneSignal(true, this->alternativeNames.value(this->fingerprintPairs[bestMatch].rightFingerprint), this->fingerprintPairs[bestMatch].score, this->requester);
+        else emit identificationDoneSignal(false, this->alternativeNames.value(this->fingerprintPairs[bestMatch].rightFingerprint), this->fingerprintPairs[bestMatch].score, this->requester);
 
         this->matcherIsRunning = false;
     }
@@ -286,8 +287,8 @@ void Matcher::bozorthMatchingDone(int duration)
 
         int bestMatch = this->findMaxScoreItem();
         if (this->fingerprintPairs[bestMatch].score >= this->thresholds.bozorthThr)
-            emit verificationDoneSignal(true);
-        else emit verificationDoneSignal(false);
+            emit verificationDoneSignal(true, this->requester);
+        else emit verificationDoneSignal(false, this->requester);
 
         this->matcherIsRunning = false;
     }

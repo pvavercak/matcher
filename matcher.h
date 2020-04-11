@@ -21,10 +21,10 @@ public:
     int setDBTestParams(int numberOfSubject, int imgPerSubject);
 
     void identify(unsigned char* subjectISO, const QMultiMap<QString, QVector<uchar> > &dbISO);
-    void identify(const QVector<MINUTIA> &subject, const QMultiMap<QString, QVector<MINUTIA> > &db);
+    void identify(const QVector<MINUTIA> &subject, const QMultiMap<QString, QVector<MINUTIA> > &db, const qintptr &requester);
 
     void verify(unsigned char *subjectISO, const QVector<unsigned char *> &dbISO);
-    void verify(const QVector<MINUTIA> &subject, const QVector<QVector<MINUTIA> > &db);
+    void verify(const QVector<MINUTIA> &subject, const QVector<QVector<MINUTIA> > &db, const qintptr &requester);
 
     void testDatabase(QMap<QString, QVector<MINUTIA> > &db);
     void testDatabase(const QMap<QString, unsigned char *> &dbISO);
@@ -37,6 +37,7 @@ private:
     MatcherISOConverter isoConverter;
 
     bool matcherIsRunning;
+    qintptr requester;
 
     MODE mode;
     MATCH_TRESHOLDS thresholds;
@@ -66,8 +67,8 @@ private slots:
 
 signals:
 
-    void identificationDoneSignal(bool success, QString bestSubject, float bestScore);
-    void verificationDoneSignal(bool success);
+    void identificationDoneSignal(bool success, QString bestSubject, float bestScore, const qintptr& requester);
+    void verificationDoneSignal(bool success, const qintptr& requester);
     void dbTestDoneSignal(DBTEST_RESULT result);
 
     void matcherProgressSignal(int progress);
