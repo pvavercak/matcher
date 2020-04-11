@@ -17,19 +17,17 @@ public:
 
     BozorthMultiThreadManager bozorth3m;
 
-    int setMatcher(MATCHER matcher);
+    int setMatcher(MATCHER matcher=bozorth3);
     int setDBTestParams(int numberOfSubject, int imgPerSubject);
 
-    void identify(unsigned char* subjectISO, const QMultiMap<QString, unsigned char *> &dbISO);
-    void identify(const QVector<MINUTIA> &subject, const QMultiMap<QString, QVector<MINUTIA> > &db);
+    void identify(unsigned char* subjectISO, const QMultiMap<QString, QVector<uchar> > &dbISO);
+    void identify(const QVector<MINUTIA> &subject, const QMultiMap<QString, QVector<MINUTIA> > &db, const qintptr &requester);
 
     void verify(unsigned char *subjectISO, const QVector<unsigned char *> &dbISO);
-    void verify(const QVector<MINUTIA> &subject, const QVector<QVector<MINUTIA> > &db);
+    void verify(const QVector<MINUTIA> &subject, const QVector<QVector<MINUTIA> > &db, const qintptr &requester);
 
     void testDatabase(QMap<QString, QVector<MINUTIA> > &db);
     void testDatabase(const QMap<QString, unsigned char *> &dbISO);
-
-    SUPREMA_MATCHER getSupremaMatcher() const;
 
     DBTEST_RESULT getDbtestResult() const;
 
@@ -39,6 +37,7 @@ private:
     MatcherISOConverter isoConverter;
 
     bool matcherIsRunning;
+    qintptr requester;
 
     MODE mode;
     MATCH_TRESHOLDS thresholds;
@@ -51,14 +50,9 @@ private:
     DBTEST_PARAMS dbtestParams;
     DBTEST_RESULT dbtestResult;
 
-    SUPREMA_MATCHER supremaMatcher;
-
-
     void generatePairs();
     void generateGenuinePairs();
     void generateImpostorPairs();
-
-    void supremaMatchingDone();
 
     int findMaxScoreItem();
     double computeEERValue();
@@ -68,15 +62,13 @@ private:
     void cleanDBTestResults();
     void matcherError(int errorCode);
 
-
 private slots:
     void bozorthMatchingDone(int duration);
 
-
 signals:
 
-    void identificationDoneSignal(bool success, QString bestSubject, float bestScore);
-    void verificationDoneSignal(bool success);
+    void identificationDoneSignal(bool success, QString bestSubject, float bestScore, const qintptr& requester);
+    void verificationDoneSignal(bool success, const qintptr& requester);
     void dbTestDoneSignal(DBTEST_RESULT result);
 
     void matcherProgressSignal(int progress);

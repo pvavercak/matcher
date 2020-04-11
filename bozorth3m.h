@@ -200,7 +200,7 @@ public:
         int * tot,		/* OUTPUT -- counter is incremented by one, sometimes */
         int * qq_overflow	/* OUTPUT -- flag is set only if qq[] overflows */
     );
-    int bz_final_loop( int tp );
+    int bz_final_loop(int *tp );
     int bozorth_probe_init( struct xyt_struct * pstruct );
     int bozorth_gallery_init( struct xyt_struct * gstruct );
     void bz_comp(int npoints,				/* INPUT: # of points */
