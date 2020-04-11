@@ -1389,7 +1389,7 @@ int Bozorth3_Core::bz_match_score(
         return match_score;
     }
 
-    match_score = bz_final_loop( tp );
+    match_score = bz_final_loop( &tp );
     return match_score;
 }
 
@@ -1592,7 +1592,7 @@ void Bozorth3_Core::bz_sift(
 
 
 
-int Bozorth3_Core::bz_final_loop( int tp )
+int Bozorth3_Core::bz_final_loop( int* tp )
 {
     int ii, i, t, b, n, k, j, kk, jj;
     int lim;
@@ -1602,10 +1602,14 @@ int Bozorth3_Core::bz_final_loop( int tp )
     /* locally because it is only used herein.  The use of   */
     /* "static" is required as the array will exceed the     */
     /* stack allocation on our local systems otherwise.      */
-    int sct[ SCT_SIZE_1 ][ SCT_SIZE_2 ];
+//    static int sct[ SCT_SIZE_1 ][ SCT_SIZE_2 ];
+    int** sct = new int*[SCT_SIZE_1]; // move to HEAP memory
+    for (int _pva = 0; _pva < SCT_SIZE_1; ++_pva){
+      sct[_pva] = new int[SCT_SIZE_2];
+    }
 
     match_score = 0;
-    for ( ii = 0; ii < tp; ii++ ) {				/* For each index up to the current value of TP ... */
+    for ( ii = 0; ii < *tp; ii++ ) {				/* For each index up to the current value of TP ... */
 
         if ( match_score >= gct[ii] )		/* if next group total not bigger than current match_score.. */
             continue;			/*		skip to next TP index */
@@ -1686,6 +1690,11 @@ int Bozorth3_Core::bz_final_loop( int tp )
         } while ( t >= 0 );
 
     } /* END FOR ii */
+
+    for(int _pva = 0; _pva < SCT_SIZE_1; ++_pva){
+      delete[] sct[_pva];
+    }
+    delete[] sct;
 
     return match_score;
 
