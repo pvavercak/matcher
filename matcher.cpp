@@ -4,7 +4,7 @@ Matcher::Matcher()
 {
     this->matcherIsRunning = false;
     this->matcher = bozorth3;
-    this->thresholds = {50, static_cast<float>(0.15)};
+    this->thresholds = {30, static_cast<float>(0.05)};
 
     this->dbtestParams.numberOfSubject = 0;
     this->dbtestParams.imgPerSubject = 0;
@@ -339,7 +339,10 @@ int Matcher::findMaxScoreItem()
     float max = this->fingerprintPairs[0].score;
 
     for (int i = 1; i < this->fingerprintPairs.size(); i++) {
-        if (this->fingerprintPairs[i].score > max) maxItemNum = i;
+        if (this->fingerprintPairs[i].score > max) {
+          maxItemNum = i;
+          max = this->fingerprintPairs[i].score;
+        }
     }
 
     return maxItemNum;
